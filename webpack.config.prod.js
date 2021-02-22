@@ -1,44 +1,44 @@
-import { registerLoader as MiniCssExtractPlugin } from "webpack";
-const { CleanWebpackPlugin } = require("clean-webpack-plugin");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const path = require("path");
 
 module.exports = {
   mode: "production",
-  //context: path.join(__dirname, "src"), // ?
-  entry: "./src/index.js",
+  context: path.join(__dirname, "src"),
+  entry: "./index.js",
 
   output: {
+    path: path.join(__dirname, "build"),
     filename: "bundle.js",
-    path: path.join(__dirname, "built"),
   },
 
   resolve: {
-    modules: [path.resolve(__dirname, "./src"), "node_modules"],
     extensions: [".js", ".jsx", ".json"],
+    modules: [path.resolve(__dirname, "./src"), "./node_modules"],
   },
 
   devServer: {
-    contentBase: path.join(__dirname, "dev"),
+    contentBase: path.resolve(__dirname, "build"),
     compress: true,
-    port: 8000,
+    port: 3000,
     open: true,
   },
 
   module: {
     rules: [
       {
-        test: /\.jsx$/,
+        test: /\.(js|jsx)$/,
         exclude: /node_modules/,
         loader: "babel-loader",
       },
       {
         test: /\.css$/,
-        use: [MiniCssExtractPlugin.loader, "css-loader"],
+        use: [MiniCssExtractPlugin.loader, 'css-loader'],
       },
       {
-        test: /\.(ttf|svg|png)$/,
+        test: /\.(ttf|png)$/,
         loader: "file-loader",
         options: {
           name: "[path][name].[ext]?[path]",
@@ -48,10 +48,10 @@ module.exports = {
   },
 
   plugins: [
-    new CleanWebpackPlugin(["prod"]),
+    new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
       title: "React HW 2",
-      template: "./src/index.html",
+      template: "./index.html",
       filename: "index.html",
     }),
     new MiniCssExtractPlugin({
