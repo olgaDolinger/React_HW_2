@@ -1,13 +1,13 @@
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 const path = require("path");
 
 module.exports = {
   mode: "development",
-  context: path.join(__dirname, "src"), // ?
-  entry: "./src/index.js",
+  context: path.join(__dirname, "src"),
+  entry: "./index.js",
 
   output: {
     path: path.join(__dirname, "build"),
@@ -37,7 +37,7 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        use: [MiniCssExtractPlugin.loader, 'css-loader'],
+        use: [MiniCssExtractPlugin.loader, "css-loader"],
       },
       {
         test: /\.(ttf|png)$/,
@@ -53,7 +53,7 @@ module.exports = {
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
       title: "React HW 2",
-      template: "./src/index.html",
+      template: "./index.html",
       filename: "index.html",
     }),
     new MiniCssExtractPlugin({
